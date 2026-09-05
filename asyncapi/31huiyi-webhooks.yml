@@ -1,0 +1,123 @@
+generated: '2026-09-05'
+method: searched
+source: https://api-help.31huiyi.com/zh/checkinpush
+docs: https://api-help.31huiyi.com/zh/ThirdPartySignInPush
+name: 31huiyi outbound push (webhook) catalog
+description: >-
+  31 publishes a documented outbound push surface: the platform POSTs JSON to an endpoint the customer
+  hosts on the public internet, on event. The developer center calls these 推送 (push) interfaces and
+  states plainly that "此接口由第三方提供" — the customer implements the endpoint and gives 31 the URL. There
+  is no self-service subscription API, no published event catalogue endpoint and no AsyncAPI document;
+  this file is the catalogue, read from the eight documented push pages.
+asyncapi_document_published: false
+asyncapi_reason: >-
+  No AsyncAPI, CloudEvents or event-schema document is published anywhere on the 31 developer center or
+  main site. The event contracts exist only as HTML documentation tables.
+transport: HTTPS POST, Content-Type application/json
+subscription:
+  self_service: false
+  mechanism: >-
+    The customer supplies a publicly reachable endpoint URL to 31's integration staff; there is no
+    documented API to register, list or rotate a webhook endpoint.
+security:
+  signing: none
+  verification: none
+  note: >-
+    No HMAC signature, shared secret, timestamp or replay protection is documented on any push payload.
+    The certificate-status push (证件状态信息推送) is documented explicitly as 不需要鉴权 — no authentication.
+    A consumer cannot verify that a delivery came from 31.
+delivery:
+  acknowledgement_contract: >-
+    Two different acknowledgement shapes are documented. The check-in push expects {code, msg} with
+    code 0 = success, 4000 = parameter error, 5000 = server error. The exhibitor/exhibit/certificate
+    pushes expect {Status, Msg} with Status 1 = success, 2 = failure.
+  retry: >-
+    The exhibit push documents three retries on failure ("失败的话我们会重试三次"). No retry policy, backoff or
+    dead-letter behaviour is documented for the other push types.
+  ordering: not documented
+  idempotency: >-
+    Not documented. The check-in payload carries IsRepeat and IsCanceled flags, which let a consumer
+    detect a repeated or cancelled check-in, but there is no delivery-level dedupe key.
+events:
+- id: checkin.push
+  name: 签到推送 — check-in push
+  description: >-
+    Fired when an attendee checks in through the 31 check-in assistant; delivers a CheckinRecords[]
+    batch.
+  payload_root: CheckinRecords[]
+  key_fields: [BventId, AttendeeId, AttendeeTypeId, CheckinRecordId, CheckinPointId, CheckinPointName,
+    CheckinPointType, CheckinTime, CheckinCode, IsRepeat, InputType, Direction, Temperature, DeviceId,
+    DeviceName, IsCanceled, IdNumber, FullName, Mobile, Email, Avatar, ValidatedTicket]
+  ack: '{code, msg}'
+  auth: none documented
+  docs: https://api-help.31huiyi.com/zh/checkinpush
+  last_updated: '2026-08-03'
+- id: attendee.registration.push
+  name: 推送参会人数据 — attendee data push
+  description: Fired after an attendee registers successfully or their data is updated.
+  key_fields: [BventId, Status, AttendeeId, CreatedDate, CheckinCode, AttendeeTypeId, SkuItems, OpenID,
+    AttendeeFields, RelationBvents]
+  docs: https://api-help.31huiyi.com/zh/AttendeeRegistrationPush
+  last_updated: '2025-06-18'
+- id: attendee.registration.push.v2
+  name: 参会人推送V2 — attendee data push V2
+  description: >-
+    Second-generation attendee push, adding an EventType discriminator (EventType=Attendee), inviter
+    fields and a ContactInfo purchaser block. Documented alongside — not as a replacement for — V1;
+    no deprecation of V1 is stated.
+  key_fields: [EventType, BventId, Status, AttendeeId, AttendeeTypeId, InviteFromUserPhone,
+    InviteFromUserEmail, InviteName, SkuItems, OpenID, ContactInfo]
+  docs: https://api-help.31huiyi.com/zh/AttendeeRegistrationPushV2
+  last_updated: '2022-09-13'
+- id: bvent.push
+  name: 推送会议数据 — event (bvent) data push
+  description: Fired after an event is created, delivering the full event record.
+  key_fields: [EventType, bventId, Title, SubTitle, StartTime, EndTime, IsLiveMeeting, BventNumber,
+    CreateTime, CreateUserName, CreateUserMobile, CreateUserEmail, Description, Venue, Address,
+    Language, BventType, BventStatus, Country, Province, City, District, RelationType, IndustryType,
+    HoldType, BventCover]
+  docs: https://api-help.31huiyi.com/zh/PushBvent
+  last_updated: '2022-08-30'
+- id: exhibitor.push
+  name: 推送参展商数据 — exhibitor data push
+  description: Fired when an exhibitor registers, or an exhibitor / company record is added or edited.
+  key_fields: [BventId, Status, AttendeeId, ExhibitorOrgId, AttendeeTypeId, AttendeeTypeName,
+    AttendeeTypeLanguage, CreatedDate, LatestUpdatedDate, AttendeeFieldValues, OrgAccounts]
+  ack: '{Status, Msg}'
+  docs: https://api-help.31huiyi.com/zh/exhibitorInfoPush
+  last_updated: '2025-05-20'
+- id: exhibit.push
+  name: 推送展品数据 — exhibit (product) data push
+  description: Fired when an exhibitor adds, copies or edits a product.
+  key_fields: [BventId, Status, Id, ExhibitorId, ExhibitorOrgId, CreatedDate, LatestUpdatedDate,
+    IsDeleted, ExhibitFieldValues]
+  ack: '{Status, Msg}'
+  retry: three retries on failure
+  docs: https://api-help.31huiyi.com/zh/exhibitInfoPush
+  last_updated: '2025-04-14'
+- id: certificate.status.push
+  name: 证件状态信息推送 — badge/certificate status push
+  description: Fired when an attendee badge has been produced; reports match/print/collection status.
+  key_fields: [BventId, AttendeeRole, AttendeeId, CheckinCode, CertificateStatus,
+    CertificateReceiveDate, RecipientName, RecipientMobile, RecipientEmail]
+  ack: '{Status, Msg}'
+  auth: explicitly none (不需要鉴权)
+  docs: https://api-help.31huiyi.com/zh/new-page
+  last_updated: '2025-10-22'
+- id: epidemic.info.push
+  name: 推送防疫信息 — epidemic-prevention info push
+  description: >-
+    Fired when an attendee submits epidemic-prevention information or an organiser reviews it. Legacy
+    surface — last documented 2022-11-01.
+  key_fields: [BventId, Id, AttendeeId, EpidemicPreventionList, AuditResult, CurrentFrequency]
+  docs: https://api-help.31huiyi.com/zh/EpidemicInfoPush
+  last_updated: '2022-11-01'
+event_count: 8
+integration_guides:
+- name: 第三方签到推送流程对接说明 — third-party check-in push integration flow
+  url: https://api-help.31huiyi.com/zh/ThirdPartySignInPush
+gaps:
+- No AsyncAPI or machine-readable event schema.
+- No payload signing or authentication on inbound deliveries.
+- No webhook management API (register / list / rotate / replay).
+- Retry policy documented for one event type only.

@@ -1,0 +1,94 @@
+generated: '2026-09-05'
+method: searched
+source: https://api-help.31huiyi.com/zh/oauth
+docs:
+- https://api-help.31huiyi.com/zh/oauth
+- https://api-help.31huiyi.com/zh/checkinpush
+- https://api-help.31huiyi.com/zh/GetAttendeeDetail
+name: 31huiyi error and result codes
+description: >-
+  Result-code registry for the 31 OpenAPI, read from the public developer center. 31 does not publish a
+  dedicated error reference page and does not use RFC 9457 problem+json; result codes are carried inside
+  a 200 JSON envelope. Three distinct code namespaces are documented, which is itself the finding — a
+  client must know which family an operation belongs to before it can interpret the response.
+format: proprietary-envelope
+rfc9457: false
+problem_json: false
+http_status_semantics: >-
+  Documented examples return HTTP 200 with the outcome encoded in the body. No 4xx/5xx catalogue is
+  published for the business surface.
+namespaces:
+- id: businessCode
+  applies_to: Most /op/api/ and /op/notoken/ business operations.
+  field: businessCode
+  message_field: businessMessage
+  documented_values:
+  - code: 0
+    meaning: Success (业务code 0表示成功)
+  note: >-
+    Only the success value is published. Non-zero business codes are returned at runtime but 31
+    publishes no enumeration of them, so a client cannot branch on a known failure set — it can only
+    detect "not zero" and surface businessMessage.
+  source: https://api-help.31huiyi.com/zh/GetAttendeeDetail
+- id: sysCode
+  applies_to: The /op/userresource/AccountUser/ account and SSO family.
+  field: sysCode
+  message_field: sysMessage
+  enum_name: EnumSystemCode
+  documented_values:
+  - code: 1000
+    meaning: 成功 — success
+  - code: 1001
+    meaning: 内部错误 — internal error
+  - code: 1002
+    meaning: 程序出错 — program error
+  - code: 1003
+    meaning: 服务器通信错误 — server communication error
+  - code: 1004
+    meaning: 服务器通信超时 — server communication timeout
+  source: https://api-help.31huiyi.com/zh/oauth
+- id: push_callback_code
+  applies_to: >-
+    The outbound push (webhook) callbacks a customer implements — 31 reads this code from the customer's
+    response to decide whether the delivery succeeded.
+  field: code
+  message_field: msg
+  documented_values:
+  - code: 0
+    meaning: 成功 — success
+  - code: 4000
+    meaning: 参数错误 — parameter error
+  - code: 5000
+    meaning: 服务器错误 — server error
+  source: https://api-help.31huiyi.com/zh/checkinpush
+domain_status_enums:
+- name: attendee status (参会人注册状态)
+  applies_to: attendeeFieldValues status / auditStatus on the attendee family
+  values:
+  - Unregistered — 未注册
+  - WaitedList — 候补
+  - NeedComplementInfo — 需要补全信息
+  - Cancelled — 已取消
+  - Registered — 报名成功
+  - PendingApproval — 待审核
+  - Unpaid — 待付款
+  - Denied — 审核拒绝
+  - NeedEditInfo — 需修改信息
+  - LogOut — 已注销
+  source: https://api-help.31huiyi.com/zh/GetAttendeeDetail
+- name: order status
+  values:
+  - Paid — 已支付
+  - UnPaid — 待支付
+  source: https://api-help.31huiyi.com/zh/BulkRegister
+- name: CreateAccountStatus
+  values:
+  - '0 — Success'
+  - '-1 — Error'
+  source: https://api-help.31huiyi.com/zh/oauth
+gaps:
+- No enumeration of non-zero businessCode values is published — the largest error-semantics gap on this API.
+- No RFC 9457 problem+json, no error type URIs, no remediation guidance.
+- No documented HTTP status contract; failures are not distinguishable by status code.
+- No error catalogue for the OAuth token endpoint beyond standard IdentityServer behaviour.
+error_count: 11

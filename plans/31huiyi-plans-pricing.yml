@@ -1,0 +1,80 @@
+generated: '2026-09-05'
+method: searched
+source: https://www.31huiyi.com/price
+name: 31huiyi plans and pricing
+description: >-
+  31 publishes list pricing for one product line (31轻会 / 31 Lite) on its public pricing page, in CNY,
+  billed annually, showing a current price against a struck-through list price. The other three product
+  lines — 31大会易 (conference), 31展览云 (exhibition cloud) and 31智慧现场 (on-site) — are quote-only
+  ("购买咨询"). No API-specific or usage-based pricing is published anywhere: API access is bundled into a
+  commercial engagement and credentials are issued by integration staff.
+currency: CNY
+billing_period: annual
+pricing_url: https://www.31huiyi.com/price
+api_pricing_published: false
+plan_count: 5
+plans:
+- name: 标准版 — Standard
+  product_line: 31轻会 (31 Lite)
+  price: 12800
+  list_price: 25600
+  currency: CNY
+  period: year
+  description: 适用于对活动营销效率与体验有追求的用户 — for users focused on event marketing efficiency and experience.
+  quota: not published
+  overage: not published
+- name: 互动版 — Interactive
+  product_line: 31轻会 (31 Lite)
+  price: 15800
+  list_price: 30600
+  currency: CNY
+  period: year
+  description: 适用于线下活动调节现场气氛 — for on-site engagement at in-person events.
+  quota: not published
+  overage: not published
+- name: 碰客宝 参展版 — Exhibitor (Pengkebao)
+  product_line: 31轻会 (31 Lite)
+  price: 15800
+  list_price: 30600
+  currency: CNY
+  period: year
+  description: 适用于企业开展线上营销活动 — for companies running online marketing activity around exhibiting.
+  quota: not published
+  overage: not published
+- name: 直播版 — Live
+  product_line: 31轻会 (31 Lite)
+  price: 25800
+  list_price: 46600
+  currency: CNY
+  period: year
+  description: 适用于企业开展线上营销活动 — for companies running online marketing events with streaming.
+  quota: not published
+  overage: not published
+- name: 尊享版 — Premium
+  product_line: 31轻会 (31 Lite)
+  price: null
+  currency: CNY
+  period: year
+  pricing_model: quote
+  description: >-
+    适用于多组织协同活动管理 — multi-organisation collaborative event management; "根据您的需求匹配功能与资源再为您报价"
+    (functions and resources matched to requirement, then quoted).
+quote_only_product_lines:
+- name: 31大会易 — conference platform
+  note: 购买咨询 (contact to purchase); a feature comparison list is published but no price.
+- name: 31展览云 — exhibition cloud
+  note: 购买咨询; core feature list published, no price.
+- name: 31智慧现场 — smart on-site
+  note: 购买咨询; no price.
+commercial_models_published:
+- 按单个项目合作 — per-project
+- 按年度合作 — annual
+- 资源置换类合作 — resource exchange
+- SaaS
+- PaaS
+- 私有部署 — private deployment
+- 被集成于其他系统 — embedded into other systems
+- 集成其他系统 — integrating other systems
+notes:
+- Prices are as published on 2026-09-05 and are promotional (现价 vs 原价).
+- No metered API pricing, no per-call rate card, no free API tier.

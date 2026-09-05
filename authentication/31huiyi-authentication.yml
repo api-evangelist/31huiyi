@@ -1,0 +1,115 @@
+generated: '2026-09-05'
+method: searched
+source: https://api-help.31huiyi.com/zh/home
+docs:
+- https://api-help.31huiyi.com/zh/home
+- https://api-help.31huiyi.com/zh/oauth
+- https://api-help.31huiyi.com/zh/frontsso
+probed:
+- url: https://oauth.31huiyi.com/.well-known/openid-configuration
+  status: 200
+- url: https://oauth.31huiyi.com/.well-known/openid-configuration/jwks
+  status: 200
+name: 31huiyi OpenAPI authentication profile
+summary: >-
+  The 31 OpenAPI is protected by an OAuth 2.0 / OpenID Connect authorization server (IdentityServer)
+  at https://oauth.31huiyi.com. Clients are issued a client id (appKey) and secret (appSecret) by
+  31's integration staff — there is no self-service registration — and exchange them at
+  /connect/token for a Bearer access token that is sent in the Authorization header on business calls.
+schemes:
+- id: oauth2_client_credentials
+  type: oauth2
+  flow: client_credentials
+  token_endpoint: https://oauth.31huiyi.com/connect/token
+  grant_type: custom_user_code
+  description: >-
+    The documented server-to-server flow. POST application/x-www-form-urlencoded to /connect/token with
+    grant_type=custom_user_code, client_id=openapi, method=client_secret, scope="offline_access
+    OpenAppGateway", appKey and appSecret. Returns access_token, expires_in, token_type (Bearer),
+    refresh_token and scope.
+  parameters:
+  - name: grant_type
+    required: true
+    documented_default: custom_user_code
+  - name: client_id
+    required: true
+    documented_default: openapi
+  - name: scope
+    required: true
+    documented_default: offline_access OpenAppGateway
+  - name: method
+    required: true
+    documented_default: client_secret
+  - name: appKey
+    required: true
+    note: Issued by 31 integration staff.
+  - name: appSecret
+    required: true
+    note: Issued by 31 integration staff.
+  source: https://api-help.31huiyi.com/zh/home
+- id: oauth2_refresh_token
+  type: oauth2
+  flow: refresh_token
+  token_endpoint: https://oauth.31huiyi.com/connect/token
+  description: >-
+    POST grant_type=refresh_token with client_id and refresh_token to mint a new access token.
+  source: https://api-help.31huiyi.com/zh/home
+- id: bearer_token
+  type: http
+  scheme: bearer
+  description: >-
+    Business operations carry Authorization: Bearer ${access_token}. Operations published under the
+    /op/notoken/ path prefix are documented as callable without a user token (client authorization
+    still applies); operations under /op/api/ and /op/userresource/ require the Bearer header.
+  applies_to: https://31api.31huiyi.com
+  source: https://api-help.31huiyi.com/zh/GetAttendeeDetail
+- id: openid_connect
+  type: openIdConnect
+  openIdConnectUrl: https://oauth.31huiyi.com/.well-known/openid-configuration
+  description: >-
+    The authorization server publishes a full OIDC discovery document anonymously, advertising
+    authorization, token, userinfo, endsession, checksession, revocation, introspection and device
+    authorization endpoints, RS256 id_tokens and PKCE (plain and S256).
+  source: https://oauth.31huiyi.com/.well-known/openid-configuration
+token:
+  format: JWT Bearer (RS256, per the OIDC discovery id_token_signing_alg_values_supported)
+  access_token_ttl: 30 minutes
+  refresh_token_ttl: 2 hours
+  header: 'Authorization: Bearer ${access_token}'
+  source: https://api-help.31huiyi.com/zh/home
+endpoints:
+  authorization: https://oauth.31huiyi.com/connect/authorize
+  token: https://oauth.31huiyi.com/connect/token
+  userinfo: https://oauth.31huiyi.com/connect/userinfo
+  revocation: https://oauth.31huiyi.com/connect/revocation
+  introspection: https://oauth.31huiyi.com/connect/introspect
+  end_session: https://oauth.31huiyi.com/connect/endsession
+  device_authorization: https://oauth.31huiyi.com/connect/deviceauthorization
+  jwks: https://oauth.31huiyi.com/.well-known/openid-configuration/jwks
+grant_types_supported:
+- authorization_code
+- client_credentials
+- refresh_token
+- implicit
+- password
+- urn:ietf:params:oauth:grant-type:device_code
+- custom_user_code
+token_endpoint_auth_methods_supported:
+- client_secret_basic
+- client_secret_post
+pkce:
+  supported: true
+  code_challenge_methods: [plain, S256]
+sso:
+  description: >-
+    31 documents a partner SSO handshake: create or resolve an account with
+    POST /op/userresource/AccountUser/v1/createForClient to obtain an accountId, exchange it for a login
+    code with GET /op/security/usercode?loginUserId=<accountId>, then redirect the browser to
+    {ConfHost}/home/autoLogin.html?uid=<accountId>&code=<usercode>&returl=<target> which lands the user
+    on the target page with a session token.
+  source: https://api-help.31huiyi.com/zh/oauth
+notes:
+- Credentials are not self-service — the docs state each client contacts 31's integration staff to be
+  issued a unique client id and secret.
+- No API-key authentication scheme is documented; every documented surface is OAuth bearer or an
+  explicitly token-free (/op/notoken/) path.

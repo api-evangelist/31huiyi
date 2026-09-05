@@ -1,0 +1,52 @@
+generated: '2026-09-05'
+method: probed
+source: https://oauth.31huiyi.com/.well-known/openid-configuration
+docs: https://api-help.31huiyi.com/zh/home
+name: 31huiyi OAuth scopes
+description: >-
+  Scope inventory read from the anonymously-published OpenID Connect discovery document on the 31
+  authorization server, cross-checked against the scope value the developer center tells OpenAPI
+  clients to request. 31 publishes no per-endpoint scope/permission reference page; the documented
+  OpenAPI client requests one coarse gateway scope plus offline_access, and authorization is enforced
+  per client rather than per named business scope.
+authorization_server: https://oauth.31huiyi.com
+token_endpoint: https://oauth.31huiyi.com/connect/token
+documented_openapi_scope_string: offline_access OpenAppGateway
+scopes:
+- name: OpenAppGateway
+  description: >-
+    The scope the developer center instructs 31 OpenAPI clients to request; grants access to the
+    /op/ gateway surface on 31api.31huiyi.com.
+  documented: true
+  source: https://api-help.31huiyi.com/zh/home
+- name: offline_access
+  description: Requests a refresh_token alongside the access token (OIDC offline access).
+  documented: true
+  source: https://api-help.31huiyi.com/zh/home
+- name: AppGateway
+  description: Sibling gateway scope advertised by the authorization server; not documented for OpenAPI clients.
+  documented: false
+- name: api1
+  description: Generic API scope advertised by the authorization server; not documented for OpenAPI clients.
+  documented: false
+- name: openid
+  description: OIDC — request an id_token.
+  documented: false
+- name: profile
+  description: OIDC standard profile claims.
+  documented: false
+- name: email
+  description: OIDC standard email claim.
+  documented: false
+- name: address
+  description: OIDC standard address claim.
+  documented: false
+- name: roles
+  description: Role claims for the authenticated subject.
+  documented: false
+claims_supported:
+- userid
+scope_count: 9
+notes:
+- No granular per-operation scopes (e.g. attendee:read) are published; the gateway scope is coarse.
+- Operations under the /op/notoken/ prefix are documented as not requiring a user token.

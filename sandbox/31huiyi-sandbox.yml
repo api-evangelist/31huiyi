@@ -1,0 +1,57 @@
+generated: '2026-09-05'
+method: searched
+source: https://api-help.31huiyi.com/zh/home
+docs: https://api-help.31huiyi.com/zh/oauth
+name: 31huiyi test environment
+description: >-
+  31 publishes a full parallel test environment and names its hosts in the developer center's
+  environment table, alongside the production hosts. This is a separate-host sandbox, not a test-mode
+  key prefix — the same credentials model applies and access is still issued by 31's integration staff.
+mode: separate-hosts
+self_service: false
+environments:
+- name: production
+  hosts:
+  - role: Oauth — SSO authentication and token issuance
+    host: https://oauth.31huiyi.com/
+  - role: OpenAPI — 31 OpenAPI
+    host: https://31api.31huiyi.com
+  - role: Conf — front-end login
+    host: https://conf.31huiyi.com
+- name: test
+  hosts:
+  - role: Oauth — SSO authentication and token issuance
+    host: https://test2-oauth.31huiyi.com
+  - role: OpenAPI — 31 OpenAPI
+    host: https://test2-31api.31huiyi.com
+  - role: Conf — front-end login
+    host: https://test2-conf.31huiyi.com
+  resolves: true
+  note: >-
+    All three test hosts resolve in public DNS (150.158.215.73 for the two probed) and are the hosts
+    the published Postman collection is pre-populated with.
+postman_collection:
+  url: https://api-help.31huiyi.com/openapi.postman_collection.json
+  status: 200
+  schema: https://schema.getpostman.com/json/collection/v2.1.0/collection.json
+  requests: [getToken, refreshToken, usercode, createForClient]
+  targets: test environment (test2-oauth / test2-31api)
+  saved: postman/31huiyi-openapi.postman_collection.json
+test_data:
+  fixtures_published: false
+  test_cards: null
+  magic_values: null
+  time_simulation: false
+  note: >-
+    No test cards, magic identifiers, seeded fixtures or time/clock simulation are published. Sample
+    request bodies in the docs use real-looking GUIDs from 31's own test tenant, which are illustrative
+    only and are not documented as callable fixtures.
+free_trial:
+  available: true
+  url: https://lite.31huiyi.com/home
+  note: >-
+    A product free trial (免费试用) exists for the 31轻会 SaaS product. It is a product trial, not API
+    sandbox access — API credentials remain gated on contacting integration staff.
+gaps:
+- No self-service sandbox credentials — a developer cannot try the API without a sales conversation.
+- No published test fixtures or deterministic test values.

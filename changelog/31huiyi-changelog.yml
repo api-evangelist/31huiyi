@@ -1,0 +1,73 @@
+generated: '2026-09-05'
+method: searched
+source: https://www.31huiyi.com/article/newslist_hy/update
+name: 31huiyi product update log
+description: 31 publishes a dated product-update stream on its main site under 产品更新 (product updates). It is a PRODUCT
+  release log, not an API changelog — entries describe features shipped in the SaaS products (31大会易, 31展览云, 31轻会,
+  智碰/碰客宝, 31智伴) and never reference OpenAPI operations, versions or breaking changes. The developer center exposes
+  a per-page last-edited timestamp, which is currently the only signal a consumer has that an API contract moved.
+scheme: dated posts, no version numbers
+versioning_scheme: null
+current_version: null
+api_changelog_published: false
+api_changelog_note: No API-specific changelog, release notes feed, or RSS exists. A breaking change to the 31 OpenAPI
+  would not appear here.
+url: https://www.31huiyi.com/article/newslist_hy/update
+entry_count: 10
+most_recent: '2026-08-28'
+entries:
+- date: '2026-08-28'
+  title: 接待政企与渠道客户参观，运用什么产品能一站式展示企业资质和项目案例？
+  url: https://www.31huiyi.com/newslist_article/article/2358658757/
+  breaking: null
+  api_related: false
+- date: '2026-08-03'
+  title: 告别纸质，一碰直达：智碰品宣卡重磅上新，让品牌全开口
+  url: https://www.31huiyi.com/newslist_article/article/2358458851/
+  breaking: null
+  api_related: false
+- date: '2026-05-18'
+  title: 31大会易同期会管理升级：从申办到邀约，一站式破解多会协同难题
+  url: https://www.31huiyi.com/newslist_article/article/2358016285/
+  breaking: null
+  api_related: false
+- date: '2026-04-17'
+  title: 产品更新 | 31大会易三大功能重磅升级：覆盖随行人员入住、参会身份更改、同期会申办，让大会管理更灵活、更高效、更省心
+  url: https://www.31huiyi.com/newslist_article/article/2357830707/
+  breaking: null
+  api_related: false
+- date: '2026-04-17'
+  title: 产品更新 | 31展览云五大功能上新：覆盖观众抽奖、证件信息复用、展团管理等，让展会运营更高效，观众体验更出彩
+  url: https://www.31huiyi.com/newslist_article/article/2357830704/
+  breaking: null
+  api_related: false
+- date: '2026-03-13'
+  title: 产品发布 | 31智伴重磅上线：不止于问答，做您全场景的会展智能伙伴
+  url: https://www.31huiyi.com/newslist_article/article/2357525888/
+  breaking: null
+  api_related: false
+- date: '2026-03-13'
+  title: 产品发布 | 31碰客宝：展会留资新利器，一碰引爆会展价值
+  url: https://www.31huiyi.com/newslist_article/article/2357525887/
+  breaking: null
+  api_related: false
+- date: '2026-02-06'
+  title: 产品更新 | 知识库功能全新升级：让AI客服助手"懂规矩，有温度，能办事"
+  url: https://www.31huiyi.com/newslist_article/article/2357227320/
+  breaking: null
+  api_related: false
+- date: '2026-01-09'
+  title: 办会人狂喜！新版响应式网站5大功能上新，让每一场会议筹备又快又出彩
+  url: https://www.31huiyi.com/newslist_article/article/2356805548/
+  breaking: null
+  api_related: false
+- date: '2025-12-31'
+  title: 碰一碰，让年会“碰”出新花样！31会议年会黑科技全场景解决方案
+  url: https://www.31huiyi.com/newslist_article/article/2356665150/
+  breaking: null
+  api_related: false
+developer_center_freshness:
+  source: https://api-help.31huiyi.com/ (Wiki.js page metadata)
+  pages: 93
+  most_recent_page_edit: '2026-08-13'
+  pages_edited_2026: 13

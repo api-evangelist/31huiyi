@@ -1,0 +1,151 @@
+generated: '2026-09-05'
+method: probed
+source: https://oauth.31huiyi.com/.well-known/openid-configuration
+name: 31huiyi well-known discovery probe
+description: >-
+  Probe of the RFC 8615 /.well-known/ namespace across every host this record knows — the registrable
+  domain and www, the developer center, the API host, the OAuth/SSO host and the front-end login host.
+  One real document was served: an OpenID Connect discovery document (IdentityServer) at
+  oauth.31huiyi.com, plus its JWKS. Everything else 404s. conf.31huiyi.com answers HTTP 200 with the
+  same 4,941-byte single-page-app shell for every path probed and is recorded as a miss, not a hit.
+checked: '2026-09-05'
+hosts:
+- host: 31huiyi.com
+  note: All /.well-known/ paths 301 to an object-moved page (redirect to www); no document served.
+  documents:
+  - path: /.well-known/security.txt
+    status: 301
+  - path: /.well-known/openid-configuration
+    status: 301
+  - path: /.well-known/oauth-authorization-server
+    status: 301
+  - path: /.well-known/oauth-protected-resource
+    status: 301
+  - path: /.well-known/api-catalog
+    status: 301
+  - path: /.well-known/ai-plugin.json
+    status: 301
+  - path: /.well-known/agent-card.json
+    status: 301
+  - path: /.well-known/agent.json
+    status: 301
+- host: www.31huiyi.com
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/openid-configuration
+    status: 302
+  - path: /.well-known/oauth-authorization-server
+    status: 302
+  - path: /.well-known/oauth-protected-resource
+    status: 302
+  - path: /.well-known/api-catalog
+    status: 302
+  - path: /.well-known/ai-plugin.json
+    status: 404
+  - path: /.well-known/agent-card.json
+    status: 404
+  - path: /.well-known/agent.json
+    status: 404
+- host: api-help.31huiyi.com
+  note: Developer center (Wiki.js). Every well-known path 404s.
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+  - path: /.well-known/oauth-protected-resource
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /.well-known/ai-plugin.json
+    status: 404
+  - path: /.well-known/agent-card.json
+    status: 404
+  - path: /.well-known/agent.json
+    status: 404
+- host: 31api.31huiyi.com
+  note: Production API host. Every well-known path 404s with an empty body.
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+  - path: /.well-known/oauth-protected-resource
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /.well-known/ai-plugin.json
+    status: 404
+  - path: /.well-known/agent-card.json
+    status: 404
+  - path: /.well-known/agent.json
+    status: 404
+- host: oauth.31huiyi.com
+  note: >-
+    OAuth 2.0 / OpenID Connect authorization server (IdentityServer). Serves a real OIDC discovery
+    document and JWKS anonymously; RFC 8414 /.well-known/oauth-authorization-server is not served.
+  documents:
+  - path: /.well-known/openid-configuration
+    status: 200
+    file: 31huiyi-openid-configuration.json
+    content_type: application/json; charset=UTF-8
+  - path: /.well-known/openid-configuration/jwks
+    status: 200
+    file: 31huiyi-openid-configuration-jwks.json
+    content_type: application/json; charset=UTF-8
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+  - path: /.well-known/oauth-protected-resource
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /.well-known/ai-plugin.json
+    status: 404
+  - path: /.well-known/agent-card.json
+    status: 404
+  - path: /.well-known/agent.json
+    status: 404
+- host: conf.31huiyi.com
+  note: >-
+    FALSE POSITIVE GUARD — this host returns HTTP 200 with an identical 4,941-byte HTML single-page-app
+    shell for every /.well-known/ path probed, including agent-card.json. No path here served a document;
+    all are recorded as misses.
+  documents:
+  - path: /.well-known/security.txt
+    status: 200
+    spa_shell: true
+  - path: /.well-known/openid-configuration
+    status: 200
+    spa_shell: true
+  - path: /.well-known/oauth-authorization-server
+    status: 200
+    spa_shell: true
+  - path: /.well-known/oauth-protected-resource
+    status: 200
+    spa_shell: true
+  - path: /.well-known/api-catalog
+    status: 200
+    spa_shell: true
+  - path: /.well-known/ai-plugin.json
+    status: 200
+    spa_shell: true
+  - path: /.well-known/agent-card.json
+    status: 200
+    spa_shell: true
+  - path: /.well-known/agent.json
+    status: 200
+    spa_shell: true
+findings:
+  security_txt: false
+  openid_configuration: true
+  oauth_authorization_server: false
+  api_catalog: false
+  ai_plugin: false
+  agent_card: false

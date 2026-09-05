@@ -1,0 +1,246 @@
+generated: '2026-09-05'
+method: derived
+source: https://api-help.31huiyi.com/ (93 documented pages)
+name: 31huiyi data model
+description: >-
+  Entity graph derived from the identifier fields and payload tables published across the 31 developer
+  center. There is no OpenAPI and no components.schemas to read, so relationships here are derived from
+  the id fields that recur across documented request and response bodies (bventId, attendeeId,
+  attendeeTypeId, orderId, itemSkuId, exhibitorOrgId, scheduleId, accountId) rather than from $ref links.
+  Confidence is stated per relationship.
+identifier_format: >-
+  GUID/UUID strings throughout (e.g. 07320000-fe25-16f7-4c65-08d9fb59aefd). No type-prefixed ids, so an
+  identifier alone does not reveal what it points at. Newer records use UUIDv7-shaped values.
+entities:
+- name: Bvent
+  label: 会议 / 活动 — event, conference or exhibition
+  description: >-
+    The root aggregate. Almost every operation on the API takes a bventId. Carries title, subtitle,
+    start/end time, venue, address, country/province/city/district, language, cover, industry type,
+    hold type, tags[] and a RelationType of Standard | Master | Children (which is how sub-forums and
+    concurrent events hang off a parent event).
+  key: bventId
+  operations: [GetBvents, QueryBvents, GetBventDetail, CreatedSubForum, UpdatedSubForum]
+  docs: https://api-help.31huiyi.com/zh/getBventDetails
+- name: AttendeeType
+  label: 人群类别 — attendee category / crowd type
+  description: >-
+    Per-event attendee category that defines which registration form fields apply. Registration cannot
+    be composed without one.
+  key: attendeeTypeId
+  docs: https://api-help.31huiyi.com/zh/new-getTypeList
+- name: Attendee
+  label: 参会人 — attendee
+  description: >-
+    A person registered to an event. Has no fixed schema — carries attendeeFieldValues[] of
+    organiser-defined fields. Status is one of Unregistered, WaitedList, NeedComplementInfo, Cancelled,
+    Registered, PendingApproval, Unpaid, Denied, NeedEditInfo, LogOut.
+  key: attendeeId
+  docs: https://api-help.31huiyi.com/zh/GetAttendeeDetail
+- name: Account
+  label: 账户 — platform user account
+  description: >-
+    The SSO identity. Created or resolved with createForClient; accountName, email or mobile serve as
+    login credentials and must be unique.
+  key: accountId
+  docs: https://api-help.31huiyi.com/zh/oauth
+- name: Order
+  label: 订单 — order
+  description: Created by ticketed registration. Carries orderNo, orderStatus (Paid | UnPaid), orderAmount and a payment link.
+  key: orderId
+  docs: https://api-help.31huiyi.com/zh/queryorderinfo
+- name: ItemSku
+  label: 门票 / 商品 — ticket or merchandise SKU
+  description: Sellable item with stock; GetItemStock reads availability.
+  key: itemSkuId
+  docs: https://api-help.31huiyi.com/zh/getItemStock
+- name: Schedule
+  label: 日程 — session / agenda item
+  key: scheduleId
+  docs: https://api-help.31huiyi.com/zh/queryScheduleDetail
+- name: ScheduleCategory
+  label: 日程分类 — session category
+  docs: https://api-help.31huiyi.com/zh/CreateScheduleCategory
+- name: ScheduleVenue
+  label: 会场 — session venue/room
+  docs: https://api-help.31huiyi.com/zh/CreateScheduleVenue
+- name: Speaker
+  label: 演讲嘉宾 — speaker
+  docs: https://api-help.31huiyi.com/zh/speakerDetail
+- name: SpeakerGroup
+  label: 演讲嘉宾分组 — speaker group
+  docs: https://api-help.31huiyi.com/zh/speakerGroupList
+- name: Exhibitor
+  label: 参展商 — exhibitor
+  description: >-
+    Exhibiting organisation. Carries an ExhibitorOrgId and OrgAccounts[] member accounts; status adds
+    Disabled (封禁) to the attendee status set.
+  key: exhibitorId / exhibitorOrgId
+  docs: https://api-help.31huiyi.com/zh/SaveExhibitor
+- name: Exhibit
+  label: 展品 — exhibited product
+  description: Status is numeric — 0 unknown, 1 pending review, 2 listed, 3 delisted, 4 disabled, 5 needs edit.
+  docs: https://api-help.31huiyi.com/zh/exhibitInfoPush
+- name: AttendeeCard
+  label: 证件 — badge / credential
+  description: >-
+    Printed credential. CertificateStatus is 1 unmatched, 2 matched, 3 printed, 4 collected;
+    AttendeeRole is 1 attendee, 32 staff, 256 exhibitor badge.
+  docs: https://api-help.31huiyi.com/zh/CreateAttendeeCard
+- name: CheckinRecord
+  label: 签到记录 — check-in record
+  description: >-
+    Produced at a CheckinPoint. Carries checkinCode, checkinTime, direction, input type, device, and an
+    optional temperature reading.
+  key: checkinRecordId
+  docs: https://api-help.31huiyi.com/zh/checkinpush
+- name: CheckinPoint
+  label: 签到点 — check-in point
+  key: checkinPointId
+  docs: https://api-help.31huiyi.com/zh/checkinpush
+- name: ReceptionGuest
+  label: 接待嘉宾 — VIP reception guest
+  docs: https://api-help.31huiyi.com/zh/getReceptionGuests
+- name: ReceptionHotel
+  label: 接待酒店 — reception hotel
+  docs: https://api-help.31huiyi.com/zh/getReceptionHotels
+- name: CmsContent
+  label: 新闻资讯 — CMS article
+  docs: https://api-help.31huiyi.com/zh/GetCmsContentList
+- name: CmsCategory
+  label: 资讯分类 — CMS category
+  docs: https://api-help.31huiyi.com/zh/GetCmsCategoryList
+- name: Material
+  label: 素材 / 文档 — session material
+  docs: https://api-help.31huiyi.com/zh/getScheduleRelationFileList
+- name: FormRecord
+  label: 表格视图记录 — form-center table record
+  docs: https://api-help.31huiyi.com/zh/formcenter/tableview/addrecord
+relationships:
+- from: Bvent
+  to: Attendee
+  type: has_many
+  via: bventId
+  confidence: high
+- from: Bvent
+  to: AttendeeType
+  type: has_many
+  via: bventId
+  confidence: high
+- from: Bvent
+  to: Schedule
+  type: has_many
+  via: bventId
+  confidence: high
+- from: Bvent
+  to: Speaker
+  type: has_many
+  via: bventId
+  confidence: high
+- from: Bvent
+  to: Exhibitor
+  type: has_many
+  via: bventId
+  confidence: high
+- from: Bvent
+  to: ItemSku
+  type: has_many
+  via: bventId
+  confidence: high
+- from: Bvent
+  to: Bvent
+  type: has_many
+  via: RelationType (Master -> Children) / CreatedSubForum
+  confidence: medium
+  note: Sub-forums and concurrent events are events parented to an event.
+- from: Attendee
+  to: AttendeeType
+  type: belongs_to
+  via: attendeeTypeId
+  confidence: high
+- from: Attendee
+  to: Account
+  type: belongs_to
+  via: accountId
+  confidence: medium
+  note: GetAttendeesByUser resolves attendees from a login account, implying the link.
+- from: Attendee
+  to: Order
+  type: has_many
+  via: orderId
+  confidence: high
+- from: Attendee
+  to: CheckinRecord
+  type: has_many
+  via: attendeeId
+  confidence: high
+- from: Attendee
+  to: AttendeeCard
+  type: has_many
+  via: attendeeId
+  confidence: high
+- from: Order
+  to: ItemSku
+  type: has_many
+  via: Items[].ItemSkuId
+  confidence: high
+- from: CheckinRecord
+  to: CheckinPoint
+  type: belongs_to
+  via: checkinPointId
+  confidence: high
+- from: Schedule
+  to: ScheduleCategory
+  type: belongs_to
+  via: schedule category id
+  confidence: high
+- from: Schedule
+  to: ScheduleVenue
+  type: belongs_to
+  via: venue id
+  confidence: high
+- from: Schedule
+  to: Speaker
+  type: has_many
+  via: speaker id
+  confidence: medium
+- from: Schedule
+  to: Material
+  type: has_many
+  via: GetScheduleRelationFileList
+  confidence: high
+- from: Speaker
+  to: SpeakerGroup
+  type: belongs_to
+  via: speaker group id
+  confidence: high
+- from: Exhibitor
+  to: Exhibit
+  type: has_many
+  via: exhibitorId
+  confidence: high
+- from: Exhibitor
+  to: AttendeeCard
+  type: has_many
+  via: CreateAttendeeCard on the exhibitor family
+  confidence: high
+- from: ReceptionGuest
+  to: ReceptionHotel
+  type: belongs_to
+  via: reception hotel id
+  confidence: medium
+- from: CmsContent
+  to: CmsCategory
+  type: belongs_to
+  via: category id
+  confidence: high
+entity_count: 22
+relationship_count: 23
+pii:
+  present: true
+  fields: [FullName, Mobile, Email, IdNumber, idType, birthday, gender, company, position, Avatar,
+    face-recognition images, Temperature]
+  note: >-
+    The surface carries direct personal data and, through /op/api/Authentication/VerifyIDCard and
+    ThreeElementCertification, national ID verification. Consumers operating in China are inside PIPL
+    scope. No API-side consent or data-subject-request operation is documented.

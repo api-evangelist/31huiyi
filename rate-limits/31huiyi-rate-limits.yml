@@ -1,0 +1,44 @@
+generated: '2026-09-05'
+method: searched
+source: https://api-help.31huiyi.com/
+docs: https://api-help.31huiyi.com/zh/getAttendeeList
+name: 31huiyi rate limits
+description: >-
+  31 publishes no rate limits for the 31 OpenAPI. All 93 pages of the developer center were read; no
+  page states a request quota, a per-second/minute/hour ceiling, a burst allowance, a 429 response, or
+  any rate-limit response header. The only published ceiling is a pagination page-size cap.
+limit_count: 0
+rate_limits: []
+response_headers:
+  documented: false
+  headers: []
+  note: >-
+    No X-RateLimit-*, RateLimit-* (RFC 9239 style) or Retry-After header is documented, and no
+    exhaustion status code is described. An agent has no runtime signal to back off on.
+exhaustion_status_code: not documented
+related_ceilings:
+- name: pagination page size
+  value: 100
+  default: 50
+  scope: per request
+  operation: POST /op/api/AttendeePersonal/QueryAttendees
+  source: https://api-help.31huiyi.com/zh/getAttendeeList
+  note: A payload ceiling, not a rate limit.
+token_ttl_constraints:
+- name: access token lifetime
+  value: 30 minutes
+  source: https://api-help.31huiyi.com/zh/home
+- name: refresh token lifetime
+  value: 2 hours
+  source: https://api-help.31huiyi.com/zh/home
+  note: >-
+    A 2-hour refresh-token lifetime is an effective operational constraint — a long-running integration
+    must re-authenticate with appKey/appSecret at least every two hours.
+webhook_retry:
+  documented: true
+  value: three retries on failure
+  scope: exhibit data push only
+  source: https://api-help.31huiyi.com/zh/exhibitInfoPush
+gaps:
+- No published rate limits at all.
+- No rate-limit response headers, so no runtime backoff signal.

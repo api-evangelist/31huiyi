@@ -1,23 +1,150 @@
 aid: 31huiyi
 name: 31huiyi
-description: '31huiyi is a company surfaced via the API Evangelist harvest backlog (source: secondary-market)
-  and added to the network as a stub for full-pipeline profiling.'
+description: '31huiyi (31会议 / 31Event) is the digital event and exhibition SaaS platform operated by
+  Shanghai Bayantu Information Technology Co., Ltd. (上海八彦图信息科技有限公司), founded 2010 and headquartered
+  in Shanghai, China. It runs a product family covering conference management (31大会易), lightweight event
+  management (31轻会), exhibition management (31展览云), on-site smart check-in and reception (31智慧现场),
+  virtual events and an event AI assistant. It publishes a public developer center at api-help.31huiyi.com
+  documenting an OAuth 2.0 / OpenID Connect protected REST OpenAPI at 31api.31huiyi.com, covering attendee
+  registration, check-in, schedules, speakers, exhibitors, tickets, reception and CMS, plus a set of outbound
+  push (webhook) callbacks a customer implements to receive check-in, attendee and exhibitor data.'
 url: https://raw.githubusercontent.com/api-evangelist/31huiyi/refs/heads/main/apis.yml
+image: https://api-help.31huiyi.com/system-image/logo.png
 x-type: company
 x-source: harvest:secondary-market
-x-tier: stub
-x-tier-reason: harvest
+x-tier: profiled
+x-tier-reason: enrichment
 specificationVersion: '0.20'
 created: '2026-09-05'
 modified: '2026-09-05'
 tags:
 - Company
-apis: []
+- Events
+- Event Management
+- Conferences
+- Exhibitions
+- Registration
+- Check-In
+- Scheduling
+- Ticketing
+- SaaS
+- China
+apis:
+- aid: 31huiyi-openapi
+  name: 31 OpenAPI
+  description: The 31huiyi (31会议) OpenAPI — an OAuth 2.0 bearer-protected REST surface documented in the
+    public developer center at api-help.31huiyi.com. It exposes attendee registration and lifecycle,
+    check-in, schedules and venues, speakers, exhibitors and badges, tickets and orders, reception and
+    hotels, form center, file upload, identity verification, SSO account creation and CMS content. All
+    business operations are POST (a small number are GET) against https://31api.31huiyi.com under the
+    /op/ prefix; a /op/notoken/ prefix marks the operations that do not require a user token.
+  humanURL: https://api-help.31huiyi.com/zh/home
+  baseURL: https://31api.31huiyi.com
+  image: https://api-help.31huiyi.com/system-image/logo.png
+  position: Producing
+  tags:
+  - Events
+  - Registration
+  - Check-In
+  - Scheduling
+  - Exhibitions
+  properties:
+  - type: Documentation
+    url: https://api-help.31huiyi.com/zh/home
+  - type: APIReference
+    url: https://api-help.31huiyi.com/zh/home
+  - type: GettingStarted
+    url: https://api-help.31huiyi.com/zh/oauth
+  - type: Authentication
+    url: authentication/31huiyi-authentication.yml
+  - type: OAuthScopes
+    url: scopes/31huiyi-scopes.yml
+  - type: Conventions
+    url: conventions/31huiyi-conventions.yml
+  - type: ErrorCatalog
+    url: errors/31huiyi-error-codes.yml
+  - type: Webhooks
+    url: asyncapi/31huiyi-webhooks.yml
+  - type: DataModel
+    url: data-model/31huiyi-data-model.yml
+  - type: Postman
+    url: postman/31huiyi-openapi.postman_collection.json
+  - type: Sandbox
+    url: sandbox/31huiyi-sandbox.yml
+  - type: RateLimits
+    url: rate-limits/31huiyi-rate-limits.yml
+  - type: X-MCPServerCandidate
+    url: mcp/31huiyi-mcp.yml
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
 - FN: APIs.json
   email: info@apis.io
 common:
+- type: DomainSecurity
+  url: security/31huiyi-domain-security.yml
 - type: Website
-  url: https://equityzen.com/company/31huiyi
+  url: https://www.31huiyi.com/
+- type: DeveloperPortal
+  url: https://api-help.31huiyi.com/zh/home
+- type: Documentation
+  url: https://api-help.31huiyi.com/zh/home
+- type: APIReference
+  url: https://api-help.31huiyi.com/zh/home
+- type: GettingStarted
+  url: https://api-help.31huiyi.com/zh/oauth
+- type: HelpCenter
+  url: https://lite-help.31huiyi.com
+- type: Support
+  url: https://www.31huiyi.com/home/about#concat
+- type: Blog
+  url: https://www.31huiyi.com/article/newslist_hy/news
+- type: Pricing
+  url: https://www.31huiyi.com/price
+- type: SignUp
+  url: https://lite.31huiyi.com/home
+- type: TermsOfService
+  url: https://www.31huiyi.com/special/termsofservice
+- type: PrivacyPolicy
+  url: https://www.31huiyi.com/special/privacyclause
+- type: ChangeLog
+  url: https://www.31huiyi.com/article/newslist_hy/update
+- type: Postman
+  url: postman/31huiyi-openapi.postman_collection.json
+- type: Plans
+  url: plans/31huiyi-plans-pricing.yml
+- type: RateLimits
+  url: rate-limits/31huiyi-rate-limits.yml
+- type: Authentication
+  url: authentication/31huiyi-authentication.yml
+- type: OAuthScopes
+  url: scopes/31huiyi-scopes.yml
+- type: Conventions
+  url: conventions/31huiyi-conventions.yml
+- type: ErrorCatalog
+  url: errors/31huiyi-error-codes.yml
+- type: Lifecycle
+  url: lifecycle/31huiyi-lifecycle.yml
+- type: Conformance
+  url: conformance/31huiyi-conformance.yml
+- type: Webhooks
+  url: asyncapi/31huiyi-webhooks.yml
+- type: WellKnown
+  url: well-known/31huiyi-well-known.yml
+- type: OpenIDConnect
+  url: well-known/31huiyi-openid-configuration.json
+- type: Sandbox
+  url: sandbox/31huiyi-sandbox.yml
+- type: ChangeLog
+  url: changelog/31huiyi-changelog.yml
+- type: X-MCPServerCandidate
+  url: mcp/31huiyi-mcp.yml
+- type: DataModel
+  url: data-model/31huiyi-data-model.yml
+- type: LLMsTxt
+  url: llms/31huiyi-llms.txt
+x-enrichment:
+  date: '2026-09-05'
+  status: enriched
+  artifacts_added: 19
+  pass: local-v3

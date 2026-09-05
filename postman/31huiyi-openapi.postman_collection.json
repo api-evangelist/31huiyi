@@ -1,0 +1,206 @@
+{
+	"info": {
+		"_postman_id": "40e9f1a6-4fa0-41a2-91fa-90e74b8d3017",
+		"name": "OpenAPI",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "getToken",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "grant_type",
+							"value": "custom_user_code",
+							"type": "text"
+						},
+						{
+							"key": "method",
+							"value": "client_secret",
+							"type": "text"
+						},
+						{
+							"key": "appKey",
+							"value": "100000",
+							"type": "text"
+						},
+						{
+							"key": "appSecret",
+							"value": "",
+							"type": "text"
+						},
+						{
+							"key": "client_id",
+							"value": "openapi",
+							"type": "text"
+						},
+						{
+							"key": "scope",
+							"value": "offline_access OpenAppGateway",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://test2-oauth.31huiyi.com/connect/token",
+					"protocol": "https",
+					"host": [
+						"test2-oauth",
+						"31huiyi",
+						"com"
+					],
+					"path": [
+						"connect",
+						"token"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "refreshToken",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "grant_type",
+							"value": "refresh_token",
+							"type": "text"
+						},
+						{
+							"key": "client_id",
+							"value": "openapi",
+							"type": "text"
+						},
+						{
+							"key": "refresh_token",
+							"value": "",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://test2-oauth.31huiyi.com/connect/token",
+					"protocol": "https",
+					"host": [
+						"test2-oauth",
+						"31huiyi",
+						"com"
+					],
+					"path": [
+						"connect",
+						"token"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "usercode",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJSUzI1NiIsImtpZCI6IjE2RjNFNURDNUJDNTEyMEUxM0M0ODk2MDBBNjNFMDFGMzBCMkM3QzBSUzI1NiIsInR5cCI6ImF0K2p3dCIsIng1dCI6IkZ2UGwzRnZGRWc0VHhJbGdDbVBnSHpDeXg4QSJ9.eyJuYmYiOjE2MjczNzUwMzMsImV4cCI6MTYyNzM3NTYzMywiaXNzIjoiaHR0cHM6Ly90ZXN0Mi1vYXV0aC4zMWh1aXlpLmNvbSIsImF1ZCI6WyJPcGVuQXBwR2F0ZXdheSIsImh0dHBzOi8vdGVzdDItb2F1dGguMzFodWl5aS5jb20vcmVzb3VyY2VzIl0sImNsaWVudF9pZCI6Im9wZW5hcGkiLCJzdWIiOiIyMDc4Nzk2MzEwMDg0OTM1NjgiLCJhdXRoX3RpbWUiOjE2MjczNzQ4NzksImlkcCI6ImxvY2FsIiwieC1hY2NvdW50SWQiOiIyMDc4Nzk2MzEwMDg0OTM1NjgiLCJ4LXRlbmFudElkIjoiMzEiLCJ4LW5hbWUiOiIiLCJqdGkiOiJCOTFGNENGQUM3MjhCQTc3OTBBRTBBMUI5NDM3M0I0RSIsImlhdCI6MTYyNzM3NTAzMywic2NvcGUiOlsiT3BlbkFwcEdhdGV3YXkiLCJvZmZsaW5lX2FjY2VzcyJdLCJhbXIiOlsiY3VzdG9tX3VzZXJfY29kZSJdfQ.VVc_j2vMwvMHG1f5AUs7mKKxXpRkCeq1OGbizKqs8dW-tiFfEIBBlBotQCwA_9Lpi0fOS1eQLYGP_Yk7r9m4xi4afeYTJKl1yHRIXzYy92sxMi-52OMIUh2rA2zztQ8FYLyN-LkQx6Ja0Nh-fDPxcEUns0aF7P4PdDDkpFfoMdJwQYw9Y3kKldfYuz8ypimlKqTrJrsUg-BisGCeWt0b9_zBjHyIseo480slInwKm10o6bOF4Zqgvi_z6XqB3SB6MlaWhFHeLHmG2GjsK9C5nG_Ok03tWY6qWyiKkyiEX38zJqAoChz0KdcyifY2wRs8pSbHSYAJqw9lasV6ZQGXug",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "loginUserId",
+							"value": "",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://test2-31api.31huiyi.com/op/security/usercode?loginUserId=3b450000-00f0-5254-00af-08d74d6ab7ba",
+					"protocol": "https",
+					"host": [
+						"test2-31api",
+						"31huiyi",
+						"com"
+					],
+					"path": [
+						"op",
+						"security",
+						"usercode"
+					],
+					"query": [
+						{
+							"key": "loginUserId",
+							"value": ""
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "createForClient",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"content-type": true
+				}
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJSUzI1NiIsImtpZCI6IjE2RjNFNURDNUJDNTEyMEUxM0M0ODk2MDBBNjNFMDFGMzBCMkM3QzBSUzI1NiIsInR5cCI6ImF0K2p3dCIsIng1dCI6IkZ2UGwzRnZGRWc0VHhJbGdDbVBnSHpDeXg4QSJ9.eyJuYmYiOjE2MjczNzYwNjYsImV4cCI6MTYyNzM3NjY2NiwiaXNzIjoiaHR0cHM6Ly90ZXN0Mi1vYXV0aC4zMWh1aXlpLmNvbSIsImF1ZCI6WyJPcGVuQXBwR2F0ZXdheSIsImh0dHBzOi8vdGVzdDItb2F1dGguMzFodWl5aS5jb20vcmVzb3VyY2VzIl0sImNsaWVudF9pZCI6Im9wZW5hcGkiLCJzdWIiOiIyMDc4Nzk2MzEwMDg0OTM1NjgiLCJhdXRoX3RpbWUiOjE2MjczNzQ4NzksImlkcCI6ImxvY2FsIiwieC1hY2NvdW50SWQiOiIyMDc4Nzk2MzEwMDg0OTM1NjgiLCJ4LXRlbmFudElkIjoiMzEiLCJ4LW5hbWUiOiIiLCJqdGkiOiIwODlDOEI0N0YxNjEwNTRCRkE4QTA4QkJCMkNDMDhENCIsImlhdCI6MTYyNzM3NjA2Niwic2NvcGUiOlsiT3BlbkFwcEdhdGV3YXkiLCJvZmZsaW5lX2FjY2VzcyJdLCJhbXIiOlsiY3VzdG9tX3VzZXJfY29kZSJdfQ.f-OQox7QjorzUr4-8bujgDWZOpTYyYDHxbhnYo8S833cGx1z2gtIlmfMsEnl4J0axsJ5Oh0CPychfIbBtrXcX6CH2dllxvgx0IYOJq0I44hY3uw7nfrcK44MGMQNZF0N5o8AqFNRBj72lonLLOXDCJEIF7QCLf8a0K-qLWH1pK_gnae31PxcxsoJPwQ04W6RUxeQASMHA5af0yOUGc_xL48yk_DaseJbMda1Ht5IcqM9OomVsA0SeJtUYBnHSZD4QMnsKTPxSDYQ174DQvMuMHhkItxoUrqNygrluOND6m5MOfw0BbQBqBcmwTNZA3M1BgC3c2eL9tDq8LIYBld1uQ",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"accountName\":\"test123\"\r\n}"
+				},
+				"url": {
+					"raw": "https://test2-31api.31huiyi.com/op/userresource/AccountUser/v1/createForClient",
+					"protocol": "https",
+					"host": [
+						"test2-31api",
+						"31huiyi",
+						"com"
+					],
+					"path": [
+						"op",
+						"userresource",
+						"AccountUser",
+						"v1",
+						"createForClient"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

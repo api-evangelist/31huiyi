@@ -1,0 +1,199 @@
+generated: '2026-09-05'
+method: searched
+source: https://api-help.31huiyi.com/zh/home
+docs:
+- https://api-help.31huiyi.com/zh/home
+- https://api-help.31huiyi.com/zh/getAttendeeList
+- https://api-help.31huiyi.com/zh/new-pagebventlist
+- https://api-help.31huiyi.com/zh/BulkRegister
+- https://api-help.31huiyi.com/zh/cancelAttendee
+name: 31huiyi OpenAPI conventions
+description: >-
+  Cross-cutting runtime semantics of the 31 OpenAPI, read from the public developer center at
+  api-help.31huiyi.com (93 documented pages, 86 distinct documented operations). No OpenAPI/Swagger
+  document is published, so every statement below is grounded in a documentation page URL.
+transport:
+  base_url: https://31api.31huiyi.com
+  path_prefix: /op/
+  style: RPC-over-HTTP
+  note: >-
+    Not resource-REST. Almost every operation is POST to a verb-named path regardless of whether it
+    reads or writes — GetAttendeeDetail, QueryAttendees, GetBvents and GetItemStock are all POST with a
+    JSON body. Exactly one documented operation is a GET (/op/security/usercode). An agent cannot infer
+    safety from the HTTP method here; it must read the operation name.
+  content_type: application/json (token endpoint is application/x-www-form-urlencoded)
+authentication:
+  style: OAuth 2.0 bearer
+  header: 'Authorization: Bearer ${access_token}'
+  token_ttl: 30 minutes
+  refresh_ttl: 2 hours
+  unauthenticated_surface: >-
+    Operations published under the /op/notoken/ path prefix are documented as callable without a user
+    token — 20 of the 86 documented operations, including attendee registration, bulk registration,
+    third-party sign-in, schedule/speaker/CMS reads and the DingKe statistics endpoints.
+  detail: authentication/31huiyi-authentication.yml
+response_envelope:
+  shape: >-
+    A flat JSON envelope, not RFC 9457. Business responses carry businessCode (number, 0 = success),
+    businessMessage (string) and data (object or array). The account/user-resource family additionally
+    carries sysCode/sysMessage/isSuccess/returnObj and a pager object.
+  fields:
+  - name: businessCode
+    type: number
+    meaning: Business result code; 0 indicates success.
+  - name: businessMessage
+    type: string
+    meaning: Human-readable business message.
+  - name: data
+    type: object|array
+    meaning: Payload.
+  - name: sysCode
+    type: integer
+    meaning: System result code (EnumSystemCode) on the userresource family.
+  - name: sysMessage
+    type: string
+  - name: isSuccess
+    type: boolean
+  - name: returnObj
+    type: object
+  errors: errors/31huiyi-error-codes.yml
+  note: >-
+    HTTP status is not the primary signal — documented examples return the business outcome inside a
+    200 envelope. An agent must read businessCode/sysCode, not the status line.
+pagination:
+  supported: true
+  style: page-number
+  consistency: inconsistent
+  variants:
+  - request_params: [pageNo, pageSize]
+    response_fields: [pageNo, pageSize, totalPage, totalCount]
+    limits: 'pageSize maximum 100; default 50 when omitted'
+    example_operation: POST /op/api/AttendeePersonal/QueryAttendees
+    source: https://api-help.31huiyi.com/zh/getAttendeeList
+  - request_params: [PageIndex, pageSize]
+    response_fields: [pager.pageIndex, pager.pageSize, pager.skip, pager.totalCount, pager.totalPage]
+    example_operation: POST /op/api/Bvent/v1/GetBvents
+    source: https://api-help.31huiyi.com/zh/new-pagebventlist
+  note: >-
+    Two different page-parameter spellings and two different response envelopes coexist across the
+    documented surface; a client cannot use one pagination helper for the whole API.
+field_model:
+  description: >-
+    Attendee data is not a fixed schema. Registration and read operations exchange a dynamic
+    attendeeFieldValues[] array of {fieldName, displayName, value, showValue, fieldType, isNeeded,
+    isUnique, options[]}, driven by the form the organiser configured for that event. The required
+    fields for a given event are discovered at runtime via the registration-parameter operations.
+  discovery_operations:
+  - https://api-help.31huiyi.com/zh/registerParams
+  - https://api-help.31huiyi.com/zh/new-getTypeList
+  implication: >-
+    An agent cannot hard-code a registration body; it must first fetch the event's field definitions.
+idempotency:
+  coverage: none
+  supported: false
+  header: null
+  scope: []
+  evidence: >-
+    No Idempotency-Key (or equivalent) header appears anywhere in the 93-page developer center, and no
+    documented write operation describes replay protection or a client-supplied request key. Retrying a
+    registration, bulk registration or push call is not documented as safe.
+  source: https://api-help.31huiyi.com/zh/home
+  note: >-
+    Uniqueness constraints on attendee fields (isUnique on Mobile/Email) may cause a duplicate
+    registration to fail, but that is a validation side effect, not a documented idempotency contract.
+reversibility:
+  grade: documented
+  applicable: true
+  summary: >-
+    Reversal operations exist and are documented for the attendee, order, schedule, speaker and
+    exhibitor write surfaces, but NO retention or cut-off window is stated anywhere in the developer
+    center. An agent can find out how to undo an action; it cannot find out how long it has.
+  operations:
+  - write: POST /op/notoken/api/Attendee/v1/Register (attendee registration)
+    reversal: POST /op/api/AttendeePersonal/LogOut (注销参会人 — deregister attendee, 大会/展会)
+    window: null
+    window_documented: false
+    docs: https://api-help.31huiyi.com/zh/cancelAttendee
+  - write: attendee registration on 31轻会 (Lite)
+    reversal: POST /op/Attendee/v1/CancelLiteAttendee (取消参会人)
+    window: null
+    window_documented: false
+    docs: https://api-help.31huiyi.com/zh/cancelliteattendee
+  - write: POST /op/api/Attendee/v1/FillAttendeeInfoForAnonymousTicket
+    reversal: POST /op/api/Attendee/v1/BulkOrderCancelAttendee
+    window: null
+    window_documented: false
+    docs: https://api-help.31huiyi.com/zh/CancelAttendee
+  - write: POST /op/api/Schedule/CreateSchedule
+    reversal: POST /op/api/Schedule/DeletedSchedule
+    window: null
+    window_documented: false
+    docs: https://api-help.31huiyi.com/zh/DeletedSchedule
+  - write: POST /op/api/Schedule/CreateScheduleCategory
+    reversal: POST /op/api/Schedule/DeletedScheduleCategory
+    window: null
+    window_documented: false
+    docs: https://api-help.31huiyi.com/zh/DeletedScheduleCategory
+  - write: POST /op/api/Schedule/CreateScheduleVenue
+    reversal: POST /op/api/Schedule/DeletedScheduleVenue
+    window: null
+    window_documented: false
+    docs: https://api-help.31huiyi.com/zh/DeletedScheduleVenue
+  - write: POST /op/api/Schedule/CreateSpeakerGroup
+    reversal: POST /op/api/Schedule/DeletedSpeakerGroup
+    window: null
+    window_documented: false
+    docs: https://api-help.31huiyi.com/zh/DeletedSpeakerGroup
+  - write: POST /op/api/Exhibitor/Save
+    reversal: POST /op/api/Exhibitor/UpdateExhibitorStatus (status change, not a delete)
+    window: null
+    window_documented: false
+    docs: https://api-help.31huiyi.com/zh/UpdateExhibitorStatus
+  - write: POST /op/api/FormCenter/tableView/addRecord
+    reversal: POST /op/api/FormCenter/tableView/deleteRecord
+    window: null
+    window_documented: false
+    docs: https://api-help.31huiyi.com/zh/formcenter/tableview/deleterecord
+  gaps:
+  - No refund or payment-reversal operation is documented, although BulkRegister returns orders with
+    orderAmount, orderStatus and a payment link (piadUrl).
+  - No window, retention period or point-of-no-return is stated for any reversal.
+dry_run_mode:
+  supported: false
+  evidence: No dry-run, preview or validate-only mode is documented for any write operation.
+  alternative: >-
+    A separate test environment is published instead (test2-oauth / test2-31api / test2-conf) — see
+    sandbox/31huiyi-sandbox.yml.
+versioning:
+  style: in-path segment, per-operation
+  detail: >-
+    Version segments appear inside individual operation paths (/v1/, and a V2 variant of the attendee
+    push documented as a separate page), not as a single global API version. Many operations carry no
+    version segment at all. There is no Accept-header or query-parameter versioning and no documented
+    version negotiation.
+  examples:
+  - /op/api/Bvent/v1/GetBvents
+  - /op/api/Attendee/v1/GetAttendeeStatistics
+  - /op/api/AttendeePersonal/GetAttendeeDetail
+  detail_artifact: lifecycle/31huiyi-lifecycle.yml
+request_tracing:
+  supported: false
+  evidence: No request-id, correlation-id or trace header is documented.
+rate_limit_signaling:
+  supported: false
+  evidence: >-
+    No rate limit, quota or throttling response headers are documented, and no 429 behaviour is
+    described. One capacity limit is published (pageSize maximum 100).
+  detail: rate-limits/31huiyi-rate-limits.yml
+metadata:
+  supported: partial
+  note: >-
+    Events carry a tags[] array and free-text description; attendees carry organiser-defined custom
+    fields (StringFieldN). There is no generic key/value metadata bag.
+expansion:
+  supported: false
+  note: No field-expansion or sparse-fieldset parameter is documented.
+webhooks:
+  supported: true
+  direction: outbound push to a customer-hosted endpoint
+  detail: asyncapi/31huiyi-webhooks.yml

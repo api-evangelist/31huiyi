@@ -1,0 +1,80 @@
+generated: '2026-09-05'
+method: searched
+source: https://api-help.31huiyi.com/
+docs: https://www.31huiyi.com/article/newslist_hy/update
+name: 31huiyi API lifecycle
+description: >-
+  Versioning, deprecation, status and support posture for the 31 OpenAPI, read from the public developer
+  center and the main site. 31 maintains its docs actively (pages edited through 2026) but publishes no
+  API-level lifecycle policy of any kind.
+versioning:
+  scheme: per-operation path segment
+  global_version: null
+  detail: >-
+    Version segments appear inside individual paths (/v1/) and a V2 push contract exists as a separate
+    documentation page, but there is no single API version, no version header, and no documented rule
+    for how a breaking change would be introduced. 41 of the 86 documented operations carry no version
+    segment at all.
+  examples:
+  - /op/api/Bvent/v1/GetBvents
+  - /op/api/Attendee/v1/GetAttendeeStatistics
+  - /op/api/AttendeePersonal/GetAttendeeDetail (unversioned)
+deprecation_policy:
+  published: false
+  sunset_header: false
+  deprecation_header: false
+  rfc8594: false
+  evidence: >-
+    No deprecation policy, sunset schedule, Deprecation/Sunset header, or notice period is published on
+    the developer center or the main site. Superseded contracts are simply left in place: the V1
+    attendee push (AttendeeRegistrationPush) and the V2 push (AttendeeRegistrationPushV2) are both
+    documented as current, with no statement that V1 is going away, and two separate "获取会议列表" event-list
+    pages (GetBventList, GetBvents) coexist with no indication which one a new integration should use.
+status_page:
+  published: false
+  evidence: >-
+    No status or uptime page is published. status.31huiyi.com does not resolve, and no status link
+    appears in the site footer, the developer center or the help centers.
+sla:
+  published: false
+  evidence: No SLA, uptime commitment or support-response target is published on the public site.
+support:
+  channels:
+  - type: phone
+    value: '400-690-3131'
+    note: Published national toll-free line.
+  - type: wechat
+    value: 'huiyi_31 (客服微信)'
+  - type: contact page
+    url: https://www.31huiyi.com/home/about#concat
+  - type: help center
+    urls:
+    - https://lite-help.31huiyi.com
+    - https://conf-help.31huiyi.com
+    - https://expo-help.31huiyi.com
+    - https://asst-help.31huiyi.com
+  api_support: >-
+    API access itself is gated on contacting 31's integration staff for a client id and secret; there
+    is no developer support ticket queue or forum.
+docs_freshness:
+  developer_center_pages: 93
+  most_recent_page_edit: '2026-08-13'
+  pages_edited_in_2026: 13
+  oldest_page_edit: '2021-09-28'
+  note: >-
+    Actively maintained. Page edit timestamps are exposed by the developer center itself, which is a
+    stronger freshness signal than most providers publish.
+deprecated_operations: []
+deprecated_operations_note: >-
+  None are marked deprecated. Nothing in the documentation carries a deprecation flag, so the coexisting
+  V1/V2 contracts above cannot be resolved by a consumer.
+changelog:
+  published: true
+  url: https://www.31huiyi.com/article/newslist_hy/update
+  scope: product release notes, not API change notes
+  detail: changelog/31huiyi-changelog.yml
+gaps:
+- No deprecation or sunset policy.
+- No status page.
+- No published SLA.
+- No API-specific changelog — product release notes only; a breaking API change would not surface there.
