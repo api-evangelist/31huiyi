@@ -1,13 +1,13 @@
 aid: 31huiyi
 name: 31huiyi
-description: '31huiyi (31会议 / 31Event) is the digital event and exhibition SaaS platform operated by
-  Shanghai Bayantu Information Technology Co., Ltd. (上海八彦图信息科技有限公司), founded 2010 and headquartered
-  in Shanghai, China. It runs a product family covering conference management (31大会易), lightweight event
-  management (31轻会), exhibition management (31展览云), on-site smart check-in and reception (31智慧现场),
-  virtual events and an event AI assistant. It publishes a public developer center at api-help.31huiyi.com
-  documenting an OAuth 2.0 / OpenID Connect protected REST OpenAPI at 31api.31huiyi.com, covering attendee
-  registration, check-in, schedules, speakers, exhibitors, tickets, reception and CMS, plus a set of outbound
-  push (webhook) callbacks a customer implements to receive check-in, attendee and exhibitor data.'
+description: 31huiyi (31会议 / 31Event) is the digital event and exhibition SaaS platform operated by Shanghai
+  Bayantu Information Technology Co., Ltd. (上海八彦图信息科技有限公司), founded 2010 and headquartered in Shanghai,
+  China. It runs a product family covering conference management (31大会易), lightweight event management
+  (31轻会), exhibition management (31展览云), on-site smart check-in and reception (31智慧现场), virtual events
+  and an event AI assistant. It publishes a public developer center at api-help.31huiyi.com documenting
+  an OAuth 2.0 / OpenID Connect protected REST OpenAPI at 31api.31huiyi.com, covering attendee registration,
+  check-in, schedules, speakers, exhibitors, tickets, reception and CMS, plus a set of outbound push (webhook)
+  callbacks a customer implements to receive check-in, attendee and exhibitor data.
 url: https://raw.githubusercontent.com/api-evangelist/31huiyi/refs/heads/main/apis.yml
 image: https://api-help.31huiyi.com/system-image/logo.png
 x-type: company
@@ -18,6 +18,18 @@ specificationVersion: '0.20'
 created: '2026-09-05'
 modified: '2026-09-05'
 tags:
+- Company
+- Event
+- Event Management
+- Conferences
+- Exhibitions
+- Registration
+- Check-in
+- Scheduling
+- Ticketing
+- Software-as-a-Service
+- China
+tags_raw:
 - Company
 - Events
 - Event Management
@@ -30,19 +42,25 @@ tags:
 - SaaS
 - China
 apis:
-- aid: 31huiyi-openapi
+- aid: 31huiyi:31huiyi-openapi
   name: 31 OpenAPI
   description: The 31huiyi (31会议) OpenAPI — an OAuth 2.0 bearer-protected REST surface documented in the
-    public developer center at api-help.31huiyi.com. It exposes attendee registration and lifecycle,
-    check-in, schedules and venues, speakers, exhibitors and badges, tickets and orders, reception and
-    hotels, form center, file upload, identity verification, SSO account creation and CMS content. All
-    business operations are POST (a small number are GET) against https://31api.31huiyi.com under the
-    /op/ prefix; a /op/notoken/ prefix marks the operations that do not require a user token.
+    public developer center at api-help.31huiyi.com. It exposes attendee registration and lifecycle, check-in,
+    schedules and venues, speakers, exhibitors and badges, tickets and orders, reception and hotels, form
+    center, file upload, identity verification, SSO account creation and CMS content. All business operations
+    are POST (a small number are GET) against https://31api.31huiyi.com under the /op/ prefix; a /op/notoken/
+    prefix marks the operations that do not require a user token.
   humanURL: https://api-help.31huiyi.com/zh/home
   baseURL: https://31api.31huiyi.com
   image: https://api-help.31huiyi.com/system-image/logo.png
   position: Producing
   tags:
+  - Event
+  - Registration
+  - Check-in
+  - Scheduling
+  - Exhibitions
+  tags_raw:
   - Events
   - Registration
   - Check-In
