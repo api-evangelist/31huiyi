@@ -78,3 +78,45 @@ commercial_models_published:
 notes:
 - Prices are as published on 2026-09-05 and are promotional (现价 vs 原价).
 - No metered API pricing, no per-call rate card, no free API tier.
+x-canonical:
+  generated: '2026-10-08'
+  vocabulary: all/0-working/economics/plans-canonical.yml
+  models:
+  - hybrid
+  units: []
+  plans:
+  - name: 标准版 — Standard
+    access: other
+    model: hybrid
+    model_how: derived
+    units: []
+    periods:
+    - year
+  - name: 互动版 — Interactive
+    access: other
+    model: hybrid
+    model_how: derived
+    units: []
+    periods:
+    - year
+  - name: 碰客宝 参展版 — Exhibitor (Pengkebao)
+    access: other
+    model: hybrid
+    model_how: derived
+    units: []
+    periods:
+    - year
+  - name: 直播版 — Live
+    access: other
+    model: hybrid
+    model_how: derived
+    units: []
+    periods:
+    - year
+  - name: 尊享版 — Premium
+    access: other
+    model: unstated
+    model_how: derived
+    units: []
+    periods:
+    - year
