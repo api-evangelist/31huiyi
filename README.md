@@ -102,26 +102,32 @@ Postman and Open Collection request collections.
 
 Authentication, trust centre, and vulnerability disclosure.
 
-- [31Huiyi Authentication](https://apis.io/security/31huiyi/31huiyi-authentication/)
-- [31Huiyi Domain Security](https://apis.io/security/31huiyi/31huiyi-domain-security/)
+- [31huiyi Authentication](https://apis.io/security/31huiyi/31huiyi-authentication/)
+- [31huiyi Domain Security](https://apis.io/security/31huiyi/31huiyi-domain-security/)
 
 #### OAuth scopes (1)
 
 The permissions the API asks for.
 
-- [31Huiyi Scopes](https://apis.io/scopes/31huiyi/31huiyi-scopes/)
+- [31huiyi Scopes](https://apis.io/scopes/31huiyi/31huiyi-scopes/)
 
 #### Plans and pricing (1)
 
 Published plans, tiers and prices.
 
-- [31Huiyi Plans Pricing](https://apis.io/plans/31huiyi/31huiyi-plans-pricing/)
+- [31huiyi Plans Pricing](https://apis.io/plans/31huiyi/31huiyi-plans-pricing/)
 
 #### Rate limits (1)
 
 Published request limits.
 
-- [31Huiyi Rate Limits](https://apis.io/rate-limits/31huiyi/31huiyi-rate-limits/)
+- [31huiyi Rate Limits](https://apis.io/rate-limits/31huiyi/31huiyi-rate-limits/)
+
+#### FinOps (1)
+
+What the API costs to run, by operation.
+
+- [31huiyi Finops](https://apis.io/finops/31huiyi/31huiyi-finops/)
 
 ## Where to find this API
 
@@ -141,18 +147,18 @@ Links to the company's own pages. This repository publishes no copy of their spe
 
 ## API Evangelist rating
 
-**Kin Score 44.0** — developing · rubric 0.25.0 · scored 2026-10-23
+**Kin Score 44.9** — developing · rubric 0.28.1 · scored 2026-11-21
 
 | Facet | Score |
 |---|---|
 | Discoverability | 66.1 |
 | Contract quality | 39.0 |
 | Contract governance | 0.0 |
-| Operational transparency | 7.9 |
+| Operational transparency | 7.1 |
 | Developer ergonomics | 66.2 |
-| Access clarity | 52.6 |
+| Access clarity | 61.7 |
 
-**Agent readiness 36.3** — agent-ready
+**Agent readiness 35.6** — agent-ready
 
 | Agent-readiness dimension | Result |
 |---|---|
@@ -177,8 +183,12 @@ Links to the company's own pages. This repository publishes no copy of their spe
 | Agentic Commerce | — |
 | Pagination Ratio | na |
 | Operation Distinctiveness | na |
+| MCP Tool Quality | na |
+| Onboarding Descriptor | — |
+| Dns Aid Index | na |
+| Markdown Negotiation | na |
 
-**Regulatory alignment 34.3** — Horizontal (data, software, accessibility, platform)
+**Regulatory alignment 28.4** — Horizontal (data, software, accessibility, platform)
 
 The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/31huiyi/](https://apis.io/providers/31huiyi/).
 
